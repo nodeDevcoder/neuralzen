@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-ez4U2p9oE21Zgke7N1ZFYd8z0xFI2ho5VJZ6uo6UJ8oZG7LH7fyVMIti1T/nhZjQ" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <title>Mental Health Modal</title>
+</head>
+
+<body class="font-montserrat bg-gray-100">
+
+    <!-- Opening button -->
+    <button id="openModal" class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded mt-10 mx-auto">
+        Open Mental Health Modal
+    </button>
+
+    <!-- Modal overlay -->
+    <div id="modalOverlay" class="hidden fixed inset-0 bg-black opacity-50"></div>
+
+    <!-- Modal content -->
+    <div id="modal" class="hidden fixed inset-0 flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-lg" style="width: 500px; height: 600px; font-family: 'Montserrat', sans-serif;">
+
+            <!-- Close button -->
+            <button id="closeModal" class="absolute top-4 right-4 text-teal-600 hover:text-teal-800 focus:outline-none">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <!-- Section 1 -->
+            <div class="mb-8 text-center">
+                <h2 class="text-lg font-bold mb-4 text-teal-600">How are you feeling today?</h2>
+                <div class="flex items-center justify-center space-x-4">
+                    <div class="circle gray-text" data-value="1" data-section="1">1</div>
+                    <div class="circle gray-text" data-value="2" data-section="1">2</div>
+                    <div class="circle gray-text" data-value="3" data-section="1">3</div>
+                    <div class="circle gray-text" data-value="4" data-section="1">4</div>
+                    <div class="circle gray-text" data-value="5" data-section="1">5</div>
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="mb-8 text-center">
+                <h2 class="text-lg font-bold mb-4 text-teal-600 flex items-center justify-center space-x-2">
+                    <button id="backToSection1" class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-1 px-2 rounded">
+                        <i class="fas fa-arrow-left text-sm"></i>
+                    </button>
+                    How would you rate your energy levels?
+                </h2>
+                <div class="flex items-center justify-center space-x-4">
+                    <div class="circle gray-text" data-value="1" data-section="2">1</div>
+                    <div class="circle gray-text" data-value="2" data-section="2">2</div>
+                    <div class="circle gray-text" data-value="3" data-section="2">3</div>
+                    <div class="circle gray-text" data-value="4" data-section="2">4</div>
+                    <div class="circle gray-text" data-value="5" data-section="2">5</div>
+                </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="text-center">
+                <h2 class="text-lg font-bold mb-4 text-teal-600 flex items-center justify-center space-x-2">
+                    <button id="backToSection2" class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-1 px-2 rounded">
+                        <i class="fas fa-arrow-left text-sm"></i>
+                    </button>
+                    How well are you managing stress?
+                </h2>
+                <div class="flex items-center justify-center space-x-4">
+                    <div class="circle gray-text" data-value="1" data-section="3">1</div>
+                    <div class="circle gray-text" data-value="2" data-section="3">2</div>
+                    <div class="circle gray-text" data-value="3" data-section="3">3</div>
+                    <div class="circle gray-text" data-value="4" data-section="3">4</div>
+                    <div class="circle gray-text" data-value="5" data-section="3">5</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript to handle modal functionality -->
+    <script>
+        const openModalBtn = document.getElementById('openModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modal = document.getElementById('modal');
+        const backToSection1Btn = document.getElementById('backToSection1');
+        const backToSection2Btn = document.getElementById('backToSection2');
+
+        openModalBtn.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+            modalOverlay.classList.remove('hidden');
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            modalOverlay.classList.add('hidden');
+        });
+
+        modalOverlay.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            modalOverlay.classList.add('hidden');
+        });
+
+        backToSection1Btn.addEventListener('click', () => {
+            // Handle going back to Section 1
+            console.log("Going back to Mood");
+        });
+
+        backToSection2Btn.addEventListener('click', () => {
+            // Handle going back to Section 2
+            console.log("Going back to Energy Levels");
+        });
+
+        // JavaScript to handle circle clicks
+        const circles = document.querySelectorAll('.circle');
+        circles.forEach((circle) => {
+            circle.addEventListener('click', () => {
+                const selectedValue = parseInt(circle.getAttribute('data-value'));
+                const section = parseInt(circle.getAttribute('data-section'));
+                const sectionCircles = document.querySelectorAll(`.circle[data-section="${section}"]`);
+
+                sectionCircles.forEach((c) => {
+                    const value = parseInt(c.getAttribute('data-value'));
+                    c.classList.toggle('filled', value <= selectedValue);
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .circle {
+            width: 100px;
+            height: 80px;
+            border-radius: 25%;
+            border: 4px solid #4FD1C5;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .gray-text {
+            color: gray;
+        }
+
+        .filled {
+            background-color: #4FD1C5;
+        }
+    </style>
+
+</body>
+
+</html>
