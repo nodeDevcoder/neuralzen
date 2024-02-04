@@ -76,11 +76,9 @@ app.get('/login', middleware.notLoggedIn, (req, res) => {
 
 app.post('/login', middleware.notLoggedIn, passport.authenticate('local', {
     failureRedirect: '/login',
-    failureFlash: true
-}, async (req, res, next) => {
-    const redirectUrl = req.session.redirectTo || '/dashboard';
-    delete req.session.redirectTo;
-    res.redirect(redirectUrl);
+    failureMessage: true,
+    failureFlash: true,
+    successRedirect: '/dashboard'
 }));
 
 app.get('/signup', middleware.notLoggedIn, (req, res) => {
@@ -162,9 +160,18 @@ app.post('/entries/:id', isLoggedIn, async (req, res) => {
     }
 });
 
+app.get('/logout', (req, res, next) => {
+    req.logout((err) => {
+        if (err) return next(err);
+        else { res.redirect('/') }
+    });
+})
+
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+
 
 let port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server running on port ${port}`));

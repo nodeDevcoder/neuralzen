@@ -36,6 +36,7 @@
     }
   })
   document.getElementById('jrnl-content').addEventListener('input', async (e) => {
+    console.log('TOUCH')
     if (document.getElementById('jrnl-content').value.trim() !== '') {
       await axios.post(`/entries/${sid}`, {}, {
         params: {
