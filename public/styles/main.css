@@ -1,0 +1,42 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
+* {
+    outline: none !important;
+    font-family: 'Montserrat';
+}
+
+form input {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.contbl {
+    width: 99%;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    border: 1px solid black;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+#side-journal {
+    padding: 10px;
+    border-left: 1px solid rgba(0, 0, 0, 0.558);
+    height: 100%;
+    max-height: 100%;
+    overflow: scroll;
+}
+
+#h1back a:hover {
+    cursor: pointer;
+}
+
+.sw {
+    font-family: 'Roboto';
+    font-weight: bold;
+}
